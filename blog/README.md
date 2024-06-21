@@ -1,1 +1,1 @@
-# Create slides using OpenAI and Node.js
+# Automate slides creation using OpenAI and Node.js
