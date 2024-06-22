@@ -1,0 +1,47 @@
+[
+	{
+		"Year": 2021,
+		"Quarter": "Q1",
+		"Distribution channel": "Online Sales",
+		"Revenue ($M)": 1.50,
+		"Costs ($M)": 1.301953,
+		"Customer count": 150,
+		"Time": "2021 Q1"
+	},
+	{
+		"Year": 2021,
+		"Quarter": "Q1",
+		"Distribution channel": "Direct Sales",
+		"Revenue ($M)": 1.50,
+		"Costs ($M)": 1.380809,
+		"Customer count": 151,
+		"Time": "2021 Q1"
+	},
+	{
+		"Year": 2021,
+		"Quarter": "Q1",
+		"Distribution channel": "Retail Partners",
+		"Revenue ($M)": 1.50,
+		"Costs ($M)": 1.348246,
+		"Customer count": 152,
+		"Time": "2021 Q1"
+	},
+	{
+		"Year": 2021,
+		"Quarter": "Q2",
+		"Distribution channel": "Online Sales",
+		"Revenue ($M)": 1.52,
+		"Costs ($M)": 1.308608,
+		"Customer count": 152,
+		"Time": "2021 Q2"
+	},
+	{
+		"Year": 2021,
+		"Quarter": "Q2",
+		"Distribution channel": "Direct Sales",
+		"Revenue ($M)": 1.52,
+		"Costs ($M)": 1.413305,
+		"Customer count": 153,
+		"Time": "2021 Q2"
+	}
+]
