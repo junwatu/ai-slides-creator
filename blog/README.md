@@ -7,6 +7,11 @@ A detailed guide on how to create slides using OpenAI's Assistant API and DALL-E
 - Create an OpenAI account and obtain an API key.
 - Install the necessary Node.js packages such as `openai` and `pptxgenjs`.
 
+## Input Data
+
+- Provides data example.
+- Limit the data format scope.
+
 ## **Generating Content**
 
 - Use the Assistant API to generate the text content for each slide. This involves prompting the API with a topic and receiving structured content that can be used in a presentation format.
