@@ -1,1 +1,1 @@
-# ai slides
+# ai slides creator
