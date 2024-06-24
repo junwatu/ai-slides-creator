@@ -16,6 +16,14 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(path.resolve(), 'dist', 'index.html'))
 })
 
+app.post('/create', (req, res) => {
+	res.json({ info: "Create slides using AI" })
+})
+
+app.get('/slides', (req, res) => {
+	res.json({ info: "Get all slides data" })
+})
+
 app.listen(port, hostname, () => {
 	console.log(`Server is running at http://${hostname}:${port}`)
 })
