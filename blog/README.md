@@ -4,6 +4,10 @@ With the rise of AI tools, we can automate many manual workloads, including crea
 
 In this post, we will use the Assistant API and DALL-E 2 model from OpenAI to automate slide content creation, Node.js to create the slide document, and GridDB to save the slide information. 
 
+## Running the Project
+
+
+
 ## **Getting Started**
 
 ### 1. Installing Node.js
