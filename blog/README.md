@@ -53,7 +53,7 @@ To access any OpenAI services, you need a valid key. Go to this [link](https://p
 
 ![create openai key](images/create-api-key.png)
 
-You need also to enable any models that you use on a project. For this project, we will need `gpt-4o` model. Go to the project settings and then select which models to be enabled.
+You need also to enable any models that you use on a project. For this project, we will need `gpt-4o` and `dall-e-2` models. Go to the project settings and then select which models to be enabled.
 
 ![models](images/models.png)
 
