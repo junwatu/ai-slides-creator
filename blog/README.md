@@ -1,5 +1,7 @@
 # Automate slide creation using OpenAI and Node.js
 
+![cover](images/cover.jpg)
+
 With the rise of AI tools, we can automate many manual workloads, including creating presentation slides. Developers can generate slide content programmatically by leveraging OpenAI's language models and Node.js. This automation surely will save time. By using OpenAI for content generation and Node.js for orchestration, you can effortlessly streamline the process of creating compelling and informative presentations.
 
 In this post, we will use the Assistant API and DALL-E 2 model from OpenAI to automate slide content creation, Node.js to create the slide document, and GridDB to save the slide information. 
