@@ -4,16 +4,57 @@ With the rise of AI tools, we can automate many manual workloads, including crea
 
 In this post, we will use the Assistant API and DALL-E 2 model from OpenAI to automate slide content creation, Node.js to create the slide document, and GridDB to save the slide information. 
 
-## **Setup**
+## **Getting Started**
 
-### OpenAI
-- Create an OpenAI account and obtain an API key.
+### 1. Installing Node.js
 
-### Node.js
+This project will run on the Node.js platform. You need to install it from [here](https://nodejs.org/en/download). For this project, we will use the `nvm` package manager and Node.js v16.20.2
+LTS version.
 
-- Install the necessary Node.js packages such as `openai` and `pptxgenjs`.
+```shell
+# installs nvm (Node Version Manager)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-### GridDB
+# download and install Node.js
+nvm install 16
+
+# verifies the right Node.js version is in the environment
+node -v # should print `v16.20.2`
+
+# verifies the right NPM version is in the environment
+npm -v # should print `8.19.4``
+```
+
+To connect Node.js and GridDB database, you need the [gridb-node-api](https://github.com/nodejs/node-addon-api) npm package which is a Node.js binding developed using GridDB C Client and Node addon API.
+
+### 2. Setting Up GridDB
+
+We will use the GridDB database to save recipes and it's nutrition analysis. Please look at the [guide](https://docs.griddb.net/latest/gettingstarted/using-apt/#install-with-apt-get) for detailed installation. We will use Ubuntu 20.04 LTS here.
+
+Run GridDB and check if the service is running. Use this command:
+
+```shell
+sudo systemctl status gridstore
+```
+
+If not running try to run the database with this command:
+
+```shell
+sudo systemctl start gridstore
+```
+
+### 3. Configuring OpenAI
+
+To access any OpenAI services, you need a valid key. Go to this [link](https://platform.openai.com/api-keys) and create a new OpenAI key.
+
+![create openai key](images/create-api-key.png)
+
+The OpenAI key is on a project basis, so we need to create a project first in the OpenAI platform and you need also to enable any models that you use on a project. For this project, we will need `gpt-4o` model.
+
+![models](images/models.png)
+
+The OpenAI key will be saved on the `.env` file and make sure not to include it in version control by adding it to the `.gitignore`.
+
 
 ## Input Data
 
