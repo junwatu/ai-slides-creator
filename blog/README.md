@@ -8,13 +8,13 @@ In this post, we will use the Assistant API and DALL-E 2 model from OpenAI to au
 
 ## Running the Project
 
-Clone the source code from this [GitHub repository](https://github.com/junwatu/ai-slides-creator)
+Clone the source code from this [GitHub repository](https://github.com/junwatu/ai-slides-creator).
 
 ```shell
 git clone https://github.com/junwatu/ai-slides-creator.git
 ```
 
-change directory to the `apps` project and install all the dependencies:
+You also need to install [Node.js](#1-installing-nodejs) and [GridDB](#2-setting-up-griddb) for this project to run. If the software requirements is installed, change the directory to the `apps` project directory and then install all the dependencies:
 
 ```shell
 cd ai-slides-creator
@@ -35,7 +35,7 @@ You can change the `VITE_APP_URL` to your needs and then run the project by runn
 npm run start:build
 ```
 
-Open the browser and go to the app URL.
+Then open the browser and go to the app URL.
 
 ## Getting Started
 
