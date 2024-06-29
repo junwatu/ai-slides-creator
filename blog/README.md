@@ -8,7 +8,34 @@ In this post, we will use the Assistant API and DALL-E 2 model from OpenAI to au
 
 ## Running the Project
 
+Clone the source code from this [GitHub repository](https://github.com/junwatu/ai-slides-creator)
 
+```shell
+git clone https://github.com/junwatu/ai-slides-creator.git
+```
+
+change directory to the `apps` project and install all the dependencies:
+
+```shell
+cd ai-slides-creator
+cd apps
+npm install 
+```
+
+Create an `.env` file and copy all environments variables from the `.env.example` file. You need an OpenAI key for this project, please look in [this section](#3-configuring-openai) on how to get the key.
+
+```ini
+OPENAI_API_KEY=sk-proj-secret
+VITE_APP_URL=http://localhost:3000
+```
+
+You can change the `VITE_APP_URL` to your needs and then run the project by running this command:
+
+```shell
+npm run start:build
+```
+
+Open the browser and go to the app URL.
 
 ## Getting Started
 
