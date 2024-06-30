@@ -92,7 +92,7 @@ You need also to enable any models that you use on a project. For this project, 
 
 You should save the OpenAI key on the `.env` file and make sure not to include it in version control by adding it to the `.gitignore`.
 
-## Input Data
+## Data Examples
 
 - Provides data example.
 - Limit the data format scope.

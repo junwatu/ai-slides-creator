@@ -1,12 +1,9 @@
-import './App.css'
+import { Button } from "@/components/ui/button"
 
-function App() {
-
+export default function Home() {
   return (
-    <>
-      <h1>Slides Creator</h1>
-    </>
+    <div className="container mx-auto px-10 py-8">
+      <Button>Click me</Button>
+    </div>
   )
 }
-
-export default App

@@ -24,6 +24,10 @@ app.get('/slides', (req, res) => {
 	res.json({ info: "Get all slides data" })
 })
 
+app.get('/data', (req, res) => {
+	res.json({ info: 'get all json data' })
+})
+
 app.listen(port, hostname, () => {
 	console.log(`Server is running at http://${hostname}:${port}`)
 })
