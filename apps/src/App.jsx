@@ -1,9 +1,29 @@
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from 'react'
+import InvoiceTable from './InvoiceTable'
 
-export default function Home() {
-  return (
-    <div className="container mx-auto px-10 py-8">
-      <Button>Click me</Button>
-    </div>
-  )
+const Home = () => {
+	const [tableData, setTableData] = useState([])
+	const baseURL = `${import.meta.env.VITE_APP_URL}/data/files/spare-part-sales-2022.json`
+
+	useEffect(() => {
+		// Replace this URL with your actual endpoint
+		fetch(baseURL)
+			.then(response => response.json())
+			.then(data => {
+				if (Array.isArray(data)) {
+					setTableData(data)
+				} else {
+					console.error('Fetched data is not an array:', data)
+				}
+			})
+			.catch(error => console.error('Error fetching data:', error))
+	}, [baseURL])
+
+	return (
+		<div>
+			<InvoiceTable data={tableData} />
+		</div>
+	)
 }
+
+export default Home
