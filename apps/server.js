@@ -1,12 +1,17 @@
 import path from 'path'
-import { URL } from 'url'
+import { URL, fileURLToPath } from 'url'
 import express from 'express'
+import fs from 'fs'
 
 const app = express()
 // eslint-disable-next-line no-undef
 const apiURL = new URL(process.env.VITE_APP_URL)
 const hostname = apiURL.hostname
 const port = apiURL.port || 4000
+
+// Get the current directory name
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 app.use(express.json())
 app.use(express.static(path.join(path.resolve(), 'dist')))
@@ -24,8 +29,30 @@ app.get('/slides', (req, res) => {
 	res.json({ info: "Get all slides data" })
 })
 
-app.get('/data', (req, res) => {
-	res.json({ info: 'get all json data' })
+// Route to list filenames in the 'data' directory
+app.get('/data/files', (req, res) => {
+	const dirPath = path.join(__dirname, 'data')
+	fs.readdir(dirPath, (err, files) => {
+		if (err) {
+			return res.status(500).send({ error: 'Failed to read the directory' })
+		}
+		// Filter out non-JSON files
+		const jsonFiles = files.filter(file => path.extname(file) === '.json')
+		res.setHeader('Content-Type', 'application/json')
+		res.send(JSON.stringify(jsonFiles))
+	})
+})
+
+// Route to serve a specific JSON file
+app.get('/data/files/:filename', (req, res) => {
+	const filePath = path.join(__dirname, 'data', req.params.filename)
+	fs.readFile(filePath, 'utf8', (err, data) => {
+		if (err) {
+			return res.status(500).send({ error: 'Failed to read the file' })
+		}
+		res.setHeader('Content-Type', 'application/json')
+		res.send(data)
+	})
 })
 
 app.listen(port, hostname, () => {
