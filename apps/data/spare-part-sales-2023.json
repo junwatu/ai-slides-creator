@@ -1,6 +1,3 @@
-Certainly! Here is a similar JSON data set for car spare part sales in 2023:
-
-```json
 [
 	{
 		"Year": 2023,
@@ -93,4 +90,3 @@ Certainly! Here is a similar JSON data set for car spare part sales in 2023:
 		"Marketing Spend ($)": 28000
 	}
 ]
-```
