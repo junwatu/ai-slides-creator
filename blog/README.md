@@ -94,6 +94,8 @@ You should save the OpenAI key on the `.env` file and make sure not to include i
 
 ## Data Examples
 
+This project will use JSON data samples from car spare parts sales. The data reside on the `data` directory.
+
 - Provides data example.
 - Limit the data format scope.
 
