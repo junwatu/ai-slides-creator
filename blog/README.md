@@ -94,10 +94,72 @@ You should save the OpenAI key on the `.env` file and make sure not to include i
 
 ## Data Examples
 
-This project will use a [JSON data]() sample from car spare parts sales. The data reside on the `data` directory.
+This project will use JSON data samples from car spare parts sales. The data reside on the `data` directory.
 
-- Provides data example.
-- Limit the data format scope.
+For example, [the spare part sales data for year 2020 to year 2023](https://raw.githubusercontent.com/junwatu/ai-slides-creator/main/apps/data/spare-part-sales-2022-2024.json):
+
+```json
+[
+ {
+  "Year": 2020,
+  "Quarter": "Q1",
+  "Distribution channel": "Online Sales",
+  "Revenue ($M)": 2.10,
+  "Costs ($M)": 1.905643,
+  "Customer count": 190,
+  "Time": "2020 Q1",
+  "Product Category": "Engine Parts",
+  "Region": "North America",
+  "Units Sold": 900,
+  "Average Sale Price ($)": 2333,
+  "Discounts Given ($)": 14000,
+  "Returns ($)": 4500,
+  "Customer Satisfaction Rating": 8.2,
+  "Salesperson": "SP120",
+  "Marketing Spend ($)": 18000
+ },
+ {
+  "Year": 2020,
+  "Quarter": "Q1",
+  "Distribution channel": "Direct Sales",
+  "Revenue ($M)": 2.15,
+  "Costs ($M)": 2.004112,
+  "Customer count": 200,
+  "Time": "2020 Q1",
+  "Product Category": "Brakes",
+  "Region": "Europe",
+  "Units Sold": 1000,
+  "Average Sale Price ($)": 2150,
+  "Discounts Given ($)": 12000,
+  "Returns ($)": 5000,
+  "Customer Satisfaction Rating": 8.0,
+  "Salesperson": "SP121",
+  "Marketing Spend ($)": 19000
+ },
+ ...
+ {
+  "Year": 2024,
+  "Quarter": "Q2",
+  "Distribution channel": "Direct Sales",
+  "Revenue ($M)": 3.15,
+  "Costs ($M)": 2.525112,
+  "Customer count": 390,
+  "Time": "2024 Q2",
+  "Product Category": "Brakes",
+  "Region": "Europe",
+  "Units Sold": 1500,
+  "Average Sale Price ($)": 2095,
+  "Discounts Given ($)": 22000,
+  "Returns ($)": 17000,
+  "Customer Satisfaction Rating": 9.1,
+  "Salesperson": "SP144",
+  "Marketing Spend ($)": 38000
+ }
+]
+```
+
+Ideally the data should be uploaded from the user interface. However, for simplicity in this project, the data will be directly processed whenever you choose the data saamples from the dropdown.
+
 
 ## Generating Content
 
