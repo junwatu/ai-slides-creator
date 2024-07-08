@@ -14,7 +14,7 @@ Clone the source code from this [GitHub repository](https://github.com/junwatu/a
 git clone https://github.com/junwatu/ai-slides-creator.git
 ```
 
-You also need to install [Node.js](#1-installing-nodejs) and [GridDB](#2-setting-up-griddb) for this project to run. If the software requirements is installed, change the directory to the `apps` project directory and then install all the dependencies:
+You also need to install [Node.js](#1-installing-nodejs) and [GridDB](#2-setting-up-griddb) for this project to run. If the software requirements are installed, change the directory to the `apps` project directory and then install all the dependencies:
 
 ```shell
 cd ai-slides-creator
@@ -22,7 +22,7 @@ cd apps
 npm install 
 ```
 
-Create an `.env` file and copy all environments variables from the `.env.example` file. You need an OpenAI key for this project, please look in [this section](#3-configuring-openai) on how to get the key.
+Create an `.env` file and copy all environment variables from the `.env.example` file. You need an OpenAI key for this project, please look in [this section](#3-configuring-openai) on how to get the key.
 
 ```ini
 OPENAI_API_KEY=sk-proj-secret
@@ -94,9 +94,9 @@ You should save the OpenAI key on the `.env` file and make sure not to include i
 
 ## Data Examples
 
-This project will use JSON data samples from car spare parts sales. The data reside on the `data` directory.
+This project will use JSON data samples from car spare parts sales. The data reside in the `data` directory.
 
-For example, [the spare part sales data for year 2020 to year 2023](https://raw.githubusercontent.com/junwatu/ai-slides-creator/main/apps/data/spare-part-sales-2022-2024.json):
+For example, [the spare part sales data for the year 2020 to the year 2023](https://raw.githubusercontent.com/junwatu/ai-slides-creator/main/apps/data/spare-part-sales-2022-2024.json):
 
 ```json
 [
@@ -158,8 +158,7 @@ For example, [the spare part sales data for year 2020 to year 2023](https://raw.
 ]
 ```
 
-Ideally the data should be uploaded from the user interface. However, for simplicity in this project, the data will be directly processed whenever you choose the data saamples from the dropdown.
-
+Ideally, the data should be uploaded via the user interface. However, for simplicity in this project, the data will be directly processed when you choose the data samples from the dropdown and click the **Generate Slide** button.
 
 ## Generating Content
 
