@@ -6,14 +6,18 @@ const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY
 });
 
+const fileIDDataSample = "file-sJYvAXwUnzYls5n2kxQOcAJm"
+
 export async function aiAssistant(filename) {
 
 	// todo:check existing file on openai storage
 
+	/**
 	const file = await openai.files.create({
 		file: fs.createReadStream(filename),
 		purpose: "assistants",
 	});
+	*/
 
 	const assistant = await openai.beta.assistants.create(
 		{
@@ -23,7 +27,7 @@ export async function aiAssistant(filename) {
 			tools: [{ "type": "code_interpreter" }],
 			tool_resources: {
 				"code_interpreter": {
-					"file_ids": [file.id]
+					"file_ids": [fileIDDataSample]
 				}
 			}
 		}
@@ -36,7 +40,7 @@ export async function aiAssistant(filename) {
 				"content": "Calculate profit (revenue minus cost) by quarter and year, and visualize as a line plot across the distribution channels, where the colors of the lines are green, light red, and light blue",
 				"attachments": [
 					{
-						file_id: file.id,
+						file_id: fileIDDataSample,
 						tools: [{ type: "code_interpreter" }]
 					}
 				]
@@ -50,4 +54,11 @@ export async function aiAssistant(filename) {
 	);
 
 	console.log(run)
-}
+	if (run.status === "completed") {
+		const messages = await openai.beta.threads.messages.list(thread.id)
+		console.log(messages.data[0].content[0].image_file)
+	}
+
+
+	// test
+	await aiAssistant()
