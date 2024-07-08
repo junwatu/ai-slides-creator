@@ -76,7 +76,7 @@ If not running try to run the database with this command:
 sudo systemctl start gridstore
 ```
 
-### 3. Configuring OpenAI
+### 3. Setup OpenAI Keys
 
 The OpenAI key is on a project basis, so we need to create a project first in the OpenAI platform.
 
