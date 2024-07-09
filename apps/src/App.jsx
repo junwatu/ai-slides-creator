@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import InvoiceTable from './InvoiceTable'
+import { CreateSlideButton } from './CreateSlideButton'
 
 const Home = () => {
 	const [tableData, setTableData] = useState([])
-	const baseURL = `${import.meta.env.VITE_APP_URL}/data/files/spare-part-sales-2022.json`
+	const baseURL = `${import.meta.env.VITE_APP_URL}/data/files/spare-part-sales-2022-2024.json`
 
 	useEffect(() => {
 		// Replace this URL with your actual endpoint
@@ -21,6 +22,7 @@ const Home = () => {
 
 	return (
 		<div>
+            <CreateSlideButton/>
 			<InvoiceTable data={tableData} />
 		</div>
 	)
