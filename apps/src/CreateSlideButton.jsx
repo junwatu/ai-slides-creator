@@ -1,5 +1,7 @@
+// CreateSlideButton.js
 import { Button } from "@/components/ui/button"
 
-export function CreateSlideButton() {
-  return <Button>Create Slide</Button>
+// eslint-disable-next-line react/prop-types
+export function CreateSlideButton({ disabled }) {
+  return <Button disabled={disabled}>Create Slide</Button>
 }

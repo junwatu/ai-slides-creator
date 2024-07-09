@@ -37,14 +37,21 @@ const Home = () => {
 	}, [selectedFile])
 
 	return (
-		<div>
-			<select onChange={(e) => setSelectedFile(e.target.value)} value={selectedFile}>
-				<option value="" disabled>Select a file</option>
-				{filenames.map((filename, index) => (
-					<option key={index} value={filename}>{filename}</option>
-				))}
-			</select>
-			<CreateSlideButton />
+		<div className="p-4">
+			<h1 className='text-3xl py-5'>AI-Powered Slide Creator</h1>
+			<div className="flex items-center space-x-4 mb-4">
+				<select
+					onChange={(e) => setSelectedFile(e.target.value)}
+					value={selectedFile}
+					className="bg-gray-900 text-white font-semibold py-2 px-4 rounded border border-gray-700"
+				>
+					<option value="" disabled>Select a file</option>
+					{filenames.map((filename, index) => (
+						<option key={index} value={filename}>{filename}</option>
+					))}
+				</select>
+				<CreateSlideButton disabled={!selectedFile} />
+			</div>
 			{tableData.length > 0 && <InvoiceTable data={tableData} />}
 		</div>
 	)

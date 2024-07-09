@@ -1,6 +1,6 @@
 [
 	{
-		"Year": 2019,
+		"Year": 2017,
 		"Quarter": "Q1",
 		"Distribution channel": "Online Sales",
 		"Revenue ($M)": 1.80,
@@ -18,7 +18,7 @@
 		"Marketing Spend ($)": 16000
 	},
 	{
-		"Year": 2019,
+		"Year": 2017,
 		"Quarter": "Q1",
 		"Distribution channel": "Direct Sales",
 		"Revenue ($M)": 1.85,
@@ -36,7 +36,7 @@
 		"Marketing Spend ($)": 17000
 	},
 	{
-		"Year": 2019,
+		"Year": 2017,
 		"Quarter": "Q1",
 		"Distribution channel": "Retail Partners",
 		"Revenue ($M)": 1.75,
@@ -54,7 +54,7 @@
 		"Marketing Spend ($)": 15000
 	},
 	{
-		"Year": 2019,
+		"Year": 2017,
 		"Quarter": "Q2",
 		"Distribution channel": "Online Sales",
 		"Revenue ($M)": 1.95,
@@ -72,7 +72,7 @@
 		"Marketing Spend ($)": 18000
 	},
 	{
-		"Year": 2019,
+		"Year": 2017,
 		"Quarter": "Q2",
 		"Distribution channel": "Direct Sales",
 		"Revenue ($M)": 2.00,
@@ -90,7 +90,7 @@
 		"Marketing Spend ($)": 19000
 	},
 	{
-		"Year": 2020,
+		"Year": 2018,
 		"Quarter": "Q3",
 		"Distribution channel": "Online Sales",
 		"Revenue ($M)": 2.00,
@@ -108,7 +108,7 @@
 		"Marketing Spend ($)": 20000
 	},
 	{
-		"Year": 2020,
+		"Year": 2018,
 		"Quarter": "Q3",
 		"Distribution channel": "Direct Sales",
 		"Revenue ($M)": 2.05,
@@ -126,7 +126,7 @@
 		"Marketing Spend ($)": 21000
 	},
 	{
-		"Year": 2021,
+		"Year": 2019,
 		"Quarter": "Q3",
 		"Distribution channel": "Online Sales",
 		"Revenue ($M)": 2.20,
@@ -144,7 +144,7 @@
 		"Marketing Spend ($)": 22000
 	},
 	{
-		"Year": 2021,
+		"Year": 2019,
 		"Quarter": "Q3",
 		"Distribution channel": "Direct Sales",
 		"Revenue ($M)": 2.25,
@@ -162,7 +162,7 @@
 		"Marketing Spend ($)": 23000
 	},
 	{
-		"Year": 2021,
+		"Year": 2019,
 		"Quarter": "Q4",
 		"Distribution channel": "Online Sales",
 		"Revenue ($M)": 2.30,
@@ -180,7 +180,7 @@
 		"Marketing Spend ($)": 24000
 	},
 	{
-		"Year": 2021,
+		"Year": 2019,
 		"Quarter": "Q4",
 		"Distribution channel": "Direct Sales",
 		"Revenue ($M)": 2.35,
@@ -196,41 +196,5 @@
 		"Customer Satisfaction Rating": 8.4,
 		"Salesperson": "SP110",
 		"Marketing Spend ($)": 25000
-	},
-	{
-		"Year": 2022,
-		"Quarter": "Q3",
-		"Distribution channel": "Online Sales",
-		"Revenue ($M)": 2.40,
-		"Costs ($M)": 2.105643,
-		"Customer count": 260,
-		"Time": "2022 Q3",
-		"Product Category": "Engine Parts",
-		"Region": "North America",
-		"Units Sold": 1100,
-		"Average Sale Price ($)": 2182,
-		"Discounts Given ($)": 17000,
-		"Returns ($)": 6500,
-		"Customer Satisfaction Rating": 8.7,
-		"Salesperson": "SP111",
-		"Marketing Spend ($)": 26000
-	},
-	{
-		"Year": 2022,
-		"Quarter": "Q3",
-		"Distribution channel": "Direct Sales",
-		"Revenue ($M)": 2.45,
-		"Costs ($M)": 2.195112,
-		"Customer count": 270,
-		"Time": "2022 Q3",
-		"Product Category": "Brakes",
-		"Region": "Europe",
-		"Units Sold": 1150,
-		"Average Sale Price ($)": 2130,
-		"Discounts Given ($)": 15000,
-		"Returns ($)": 7000,
-		"Customer Satisfaction Rating": 8.6,
-		"Salesperson": "SP112",
-		"Marketing Spend ($)": 27000
 	}
 ]
