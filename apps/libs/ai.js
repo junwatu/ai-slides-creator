@@ -1,5 +1,4 @@
 import OpenAI from "openai";
-import fs from 'fs';
 
 const openai = new OpenAI({
 	// eslint-disable-next-line no-undef
@@ -59,6 +58,8 @@ export async function aiAssistant(filename) {
 		console.log(messages.data[0].content[0].image_file)
 	}
 
+}
 
-	// test
-	await aiAssistant()
+
+// test
+await aiAssistant()
