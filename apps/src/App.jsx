@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
 import InvoiceTable from './InvoiceTable'
+import { useState, useEffect } from 'react'
 import { CreateSlideButton } from './CreateSlideButton'
 
 const Home = () => {
@@ -8,7 +8,6 @@ const Home = () => {
 	const [tableData, setTableData] = useState([])
 
 	useEffect(() => {
-		// Fetch the list of filenames
 		fetch(`${import.meta.env.VITE_APP_URL}/data/files`)
 			.then(response => response.json())
 			.then(data => {
@@ -22,7 +21,6 @@ const Home = () => {
 	}, [])
 
 	useEffect(() => {
-		// Fetch the data for the selected file
 		if (selectedFile) {
 			const baseURL = `${import.meta.env.VITE_APP_URL}/data/files/${selectedFile}`
 			fetch(baseURL)
