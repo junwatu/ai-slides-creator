@@ -60,6 +60,3 @@ export async function aiAssistant(filename) {
 
 }
 
-
-// test
-await aiAssistant()

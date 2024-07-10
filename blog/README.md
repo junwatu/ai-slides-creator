@@ -156,7 +156,9 @@ This project will use JSON data samples from car spare parts sales. The data res
 ]
 ```
 
-Ideally, the data should be uploaded via the user interface. However, for simplicity in this project, the data will be directly processed when you choose the data samples from the dropdown and click the **Generate Slide** button.
+Ideally, the data should be uploaded via the user interface. However, for simplicity in this project, the data will be directly processed when you choose the data samples from the dropdown and click the **Create Slide** button.
+
+![create slide button](images/create-slide-button.png)
 
 ## Generating Content
 

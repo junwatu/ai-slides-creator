@@ -3,26 +3,28 @@ import { useState, useEffect } from 'react'
 import { CreateSlideButton } from './CreateSlideButton'
 
 const Home = () => {
-	const [filenames, setFilenames] = useState([])
+	const [fileMetadata, setFileMetadata] = useState({})
 	const [selectedFile, setSelectedFile] = useState('')
 	const [tableData, setTableData] = useState([])
 
 	useEffect(() => {
-		fetch(`${import.meta.env.VITE_APP_URL}/data/files`)
+		// Fetch the metadata for the files
+		fetch(`${import.meta.env.VITE_APP_URL}/metadata`)
 			.then(response => response.json())
 			.then(data => {
-				if (Array.isArray(data)) {
-					setFilenames(data)
+				if (typeof data === 'object' && data !== null) {
+					setFileMetadata(data)
 				} else {
-					console.error('Fetched data is not an array:', data)
+					console.error('Fetched data is not an object:', data)
 				}
 			})
-			.catch(error => console.error('Error fetching filenames:', error))
+			.catch(error => console.error('Error fetching file metadata:', error))
 	}, [])
 
 	useEffect(() => {
 		if (selectedFile) {
-			const baseURL = `${import.meta.env.VITE_APP_URL}/data/files/${selectedFile}`
+			const selectedFileId = fileMetadata[selectedFile].name
+			const baseURL = `${import.meta.env.VITE_APP_URL}/data/files/${selectedFileId}`
 			fetch(baseURL)
 				.then(response => response.json())
 				.then(data => {
@@ -34,20 +36,24 @@ const Home = () => {
 				})
 				.catch(error => console.error('Error fetching data:', error))
 		}
-	}, [selectedFile])
+	}, [selectedFile, fileMetadata])
+
+	const handleFileChange = (e) => {
+		setSelectedFile(e.target.value)
+	}
 
 	return (
 		<div className="p-4">
 			<h1 className='text-3xl py-5'>AI-Powered Slide Creator</h1>
 			<div className="flex items-center space-x-4 mb-4">
 				<select
-					onChange={(e) => setSelectedFile(e.target.value)}
+					onChange={handleFileChange}
 					value={selectedFile}
 					className="bg-gray-900 text-white font-semibold py-2 px-4 rounded border border-gray-700"
 				>
 					<option value="" disabled>Select a file</option>
-					{filenames.map((filename, index) => (
-						<option key={index} value={filename}>{filename}</option>
+					{Object.keys(fileMetadata).map((key) => (
+						<option key={key} value={key}>{fileMetadata[key].name}</option>
 					))}
 				</select>
 				<CreateSlideButton disabled={!selectedFile} />

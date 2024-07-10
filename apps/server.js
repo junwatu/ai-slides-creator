@@ -29,6 +29,10 @@ app.get('/slides', (req, res) => {
 	res.json({ info: "Get all slides data" })
 })
 
+app.get('/metadata', (req, res) => {
+	res.sendFile(path.join(__dirname, 'data', 'metadata.json'))
+})
+
 // Route to list filenames in the 'data' directory
 app.get('/data/files', (req, res) => {
 	const dirPath = path.join(__dirname, 'data')
