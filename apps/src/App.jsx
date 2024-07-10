@@ -7,6 +7,7 @@ const Home = () => {
 	const [selectedFile, setSelectedFile] = useState('')
 	const [tableData, setTableData] = useState([])
 	const [loading, setLoading] = useState(false)
+	const [imageSrc, setImageSrc] = useState('')
 
 	useEffect(() => {
 		// Fetch the metadata for the files
@@ -52,6 +53,9 @@ const Home = () => {
 			const fileId = fileMetadata[selectedFile].id
 			const response = await fetch(`${import.meta.env.VITE_APP_URL}/create/${fileId}`)
 			if (response.ok) {
+				const blob = await response.blob()
+				const imageUrl = URL.createObjectURL(blob)
+				setImageSrc(imageUrl)
 				console.log('Slide creation request sent successfully')
 			} else {
 				console.error('Failed to send slide creation request')
@@ -84,6 +88,7 @@ const Home = () => {
 				/>
 			</div>
 			{tableData.length > 0 && <InvoiceTable data={tableData} />}
+			{imageSrc && <img src={imageSrc} alt="Generated slide" />}
 		</div>
 	)
 }

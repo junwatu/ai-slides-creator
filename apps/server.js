@@ -1,19 +1,16 @@
 import path from 'path'
-import { URL, fileURLToPath } from 'url'
 import express from 'express'
 import fs from 'fs'
 import { aiAssistant } from './libs/ai.js'
-
+import { error } from 'console'
+import { URL, fileURLToPath } from 'url'
+import { __dirname } from './libs/dirname.js'
 
 const app = express()
 // eslint-disable-next-line no-undef
 const apiURL = new URL(process.env.VITE_APP_URL)
 const hostname = apiURL.hostname
 const port = apiURL.port || 4000
-
-// Get the current directory name
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 app.use(express.json())
 app.use(express.static(path.join(path.resolve(), 'dist')))
@@ -27,18 +24,22 @@ app.get('/create/:fileId', async (req, res) => {
 	const fileId = req.params.fileId
 
 	try {
-		// Call the aiAssistant function with the fileId
-		//await aiAssistant(fileId)
-		console.log(fileId)
+		const result = await aiAssistant(fileId)
 
 		/**
-		setTimeout(() => {
-			console.log("simulate server process delay")
-			res.status(200).send('AI Assistant task completed successfully')
-		}, 5000)
+		if (result.status === "completed") {
+			res.setHeader('Content-Type', 'image/png')
+			res.status(200).send(result.data)
+		} else {
+			res.status(500).json({
+				error: 'Task not completed', status: result.status
+			})
+		}
+
 		*/
 
-		res.status(200).send('AI Assistant task completed successfully')
+		res.status(200).send("hello")
+
 	} catch (error) {
 		console.error('Error in AI Assistant:', error)
 		res.status(500).send('Error in AI Assistant')
