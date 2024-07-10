@@ -28,7 +28,16 @@ app.get('/create/:fileId', async (req, res) => {
 
 	try {
 		// Call the aiAssistant function with the fileId
-		await aiAssistant(fileId)
+		//await aiAssistant(fileId)
+		console.log(fileId)
+
+		/**
+		setTimeout(() => {
+			console.log("simulate server process delay")
+			res.status(200).send('AI Assistant task completed successfully')
+		}, 5000)
+		*/
+
 		res.status(200).send('AI Assistant task completed successfully')
 	} catch (error) {
 		console.error('Error in AI Assistant:', error)

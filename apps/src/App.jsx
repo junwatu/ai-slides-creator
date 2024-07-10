@@ -6,6 +6,7 @@ const Home = () => {
 	const [fileMetadata, setFileMetadata] = useState({})
 	const [selectedFile, setSelectedFile] = useState('')
 	const [tableData, setTableData] = useState([])
+	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
 		// Fetch the metadata for the files
@@ -42,6 +43,26 @@ const Home = () => {
 		setSelectedFile(e.target.value)
 	}
 
+	const handleCreateSlide = async () => {
+		if (!selectedFile) return
+
+		setLoading(true)
+
+		try {
+			const fileId = fileMetadata[selectedFile].id
+			const response = await fetch(`${import.meta.env.VITE_APP_URL}/create/${fileId}`)
+			if (response.ok) {
+				console.log('Slide creation request sent successfully')
+			} else {
+				console.error('Failed to send slide creation request')
+			}
+		} catch (error) {
+			console.error('Error in creating slide:', error)
+		} finally {
+			setLoading(false)
+		}
+	}
+
 	return (
 		<div className="p-4">
 			<h1 className='text-3xl py-5'>AI-Powered Slide Creator</h1>
@@ -56,7 +77,11 @@ const Home = () => {
 						<option key={key} value={key}>{fileMetadata[key].name}</option>
 					))}
 				</select>
-				<CreateSlideButton disabled={!selectedFile} />
+				<CreateSlideButton
+					disabled={!selectedFile}
+					loading={loading}
+					onClick={handleCreateSlide}
+				/>
 			</div>
 			{tableData.length > 0 && <InvoiceTable data={tableData} />}
 		</div>
