@@ -2,6 +2,8 @@ import path from 'path'
 import { URL, fileURLToPath } from 'url'
 import express from 'express'
 import fs from 'fs'
+import { aiAssistant } from './libs/ai.js'
+
 
 const app = express()
 // eslint-disable-next-line no-undef
@@ -21,8 +23,17 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(path.resolve(), 'dist', 'index.html'))
 })
 
-app.post('/create', (req, res) => {
-	res.json({ info: "Create slides using AI" })
+app.get('/create/:fileId', async (req, res) => {
+	const fileId = req.params.fileId
+
+	try {
+		// Call the aiAssistant function with the fileId
+		await aiAssistant(fileId)
+		res.status(200).send('AI Assistant task completed successfully')
+	} catch (error) {
+		console.error('Error in AI Assistant:', error)
+		res.status(500).send('Error in AI Assistant')
+	}
 })
 
 app.get('/slides', (req, res) => {
