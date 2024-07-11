@@ -1,9 +1,8 @@
-import path from 'path'
-import express from 'express'
 import fs from 'fs'
+import path from 'path'
+import { URL } from 'url'
+import express from 'express'
 import { aiAssistant } from './libs/ai.js'
-import { error } from 'console'
-import { URL, fileURLToPath } from 'url'
 import { __dirname } from './libs/dirname.js'
 
 const app = express()
@@ -26,19 +25,13 @@ app.get('/create/:fileId', async (req, res) => {
 	try {
 		const result = await aiAssistant(fileId)
 
-		/**
 		if (result.status === "completed") {
-			res.setHeader('Content-Type', 'image/png')
 			res.status(200).send(result.data)
 		} else {
 			res.status(500).json({
 				error: 'Task not completed', status: result.status
 			})
 		}
-
-		*/
-
-		res.status(200).send("hello")
 
 	} catch (error) {
 		console.error('Error in AI Assistant:', error)
