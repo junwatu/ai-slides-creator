@@ -3,7 +3,7 @@ import path from 'path'
 import { URL } from 'url'
 import express from 'express'
 import { aiAssistant } from './libs/ai.js'
-import { __dirname } from './libs/dirname.js'
+import { __dirname } from './dirname.js'
 
 const app = express()
 // eslint-disable-next-line no-undef
