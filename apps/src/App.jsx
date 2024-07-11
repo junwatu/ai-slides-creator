@@ -53,8 +53,8 @@ const Home = () => {
 			const fileId = fileMetadata[selectedFile].id
 			const response = await fetch(`${import.meta.env.VITE_APP_URL}/create/${fileId}`)
 			if (response.ok) {
-				const blob = await response.blob()
-				const imageUrl = URL.createObjectURL(blob)
+				console.log(response.data)
+				const imageUrl = response.data
 				setImageSrc(imageUrl)
 				console.log('Slide creation request sent successfully')
 			} else {
