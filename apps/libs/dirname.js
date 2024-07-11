@@ -1,5 +1,5 @@
 import path from 'path'
-import { URL, fileURLToPath } from 'url'
+import { fileURLToPath } from 'url'
 
 // Get the current directory name
 export const __filename = fileURLToPath(import.meta.url)
