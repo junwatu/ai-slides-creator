@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import OpenAI from "openai"
 import path from 'node:path'
 import { Buffer } from "node:buffer"
-import { __dirname } from './dirname.js'
+import { __dirname } from '../dirname.js'
 
 const openai = new OpenAI({
 	// eslint-disable-next-line no-undef
@@ -14,6 +14,9 @@ const insightPrompt = `Give me two medium length sentences (~20-30 words per sen
 const analyzeDataPrompt = "Calculate profit (revenue minus cost) by quarter and year, and visualize as a line plot across the distribution channels, where the colors of the lines are green, light red, and light blue"
 
 const bulletPointsPrompt = "Given the plot and bullet points you created,come up with a very brief title for a slide. It should reflect just the main insights you came up with."
+
+const companySummary = "Global Auto Parts Distribution Inc. is a leading distributor of automotive parts, including engine components, brakes, and electrical systems. Serving North America, Europe, and Asia through online, direct, and retail channels."
+
 
 export async function aiAssistant(fileId) {
 
@@ -58,21 +61,22 @@ export async function aiAssistant(fileId) {
 
 		try {
 			const filename = `output-${fileId}.png`
-			convertFileToPng(fileId, path.join(__dirname, 'public', filename))
+			convertFileToPng(messages.data[0].content[0].image_file.file_id, path.join(__dirname, 'public', filename))
 
 			// AI Insight
 			const result = await addMessage(assistant.id, thread.id, insightPrompt)
+
 			if (result.status === 'completed') {
 				const message = await openai.beta.threads.messages.list(thread.id)
 				const bulletPoints = message.data[0].content[0].text.value
-				console.log(bulletPoints)
+				console.log(`Bullet Points: ${bulletPoints}`)
 
 				const bulletPointsSummary = await addMessage(assistant.id, thread.id, bulletPointsPrompt)
+
 				if (bulletPointsSummary.status === "completed") {
 					const message = await openai.beta.threads.messages.list(thread.id)
 					const title = message.data[0].content[0].text.value
-					console.log(title)
-
+					console.log(`Title: ${title}`)
 				}
 			}
 
@@ -87,7 +91,7 @@ export async function aiAssistant(fileId) {
 }
 
 async function addMessage(assistantId, threadId, prompt) {
-	await openai.beta.threads.messages.create(threadId, prompt)
+	await openai.beta.threads.messages.create(threadId, { role: 'user', content: prompt })
 	const response = await openai.beta.threads.runs.createAndPoll(threadId, { assistant_id: assistantId })
 	return response
 }
