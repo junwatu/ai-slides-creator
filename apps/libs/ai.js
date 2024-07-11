@@ -9,6 +9,12 @@ const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY
 });
 
+const insightPrompt = `Give me two medium length sentences (~20-30 words per sentence) of the most important insights from the plot you just created. These will be used for a slide deck, and they should be about the 'so what' behind the data."`
+
+const analyzeDataPrompt = "Calculate profit (revenue minus cost) by quarter and year, and visualize as a line plot across the distribution channels, where the colors of the lines are green, light red, and light blue"
+
+const bulletPointsPrompt = "Given the plot and bullet points you created,come up with a very brief title for a slide. It should reflect just the main insights you came up with."
+
 export async function aiAssistant(fileId) {
 
 	const assistant = await openai.beta.assistants.create(
@@ -29,7 +35,7 @@ export async function aiAssistant(fileId) {
 		messages: [
 			{
 				"role": "user",
-				"content": "Calculate profit (revenue minus cost) by quarter and year, and visualize as a line plot across the distribution channels, where the colors of the lines are green, light red, and light blue",
+				"content": analyzeDataPrompt,
 				"attachments": [
 					{
 						file_id: fileId,
@@ -53,6 +59,23 @@ export async function aiAssistant(fileId) {
 		try {
 			const filename = `output-${fileId}.png`
 			convertFileToPng(fileId, path.join(__dirname, 'public', filename))
+
+			// AI Insight
+			const result = await addMessage(assistant.id, thread.id, insightPrompt)
+			if (result.status === 'completed') {
+				const message = await openai.beta.threads.messages.list(thread.id)
+				const bulletPoints = message.data[0].content[0].text.value
+				console.log(bulletPoints)
+
+				const bulletPointsSummary = await addMessage(assistant.id, thread.id, bulletPointsPrompt)
+				if (bulletPointsSummary.status === "completed") {
+					const message = await openai.beta.threads.messages.list(thread.id)
+					const title = message.data[0].content[0].text.value
+					console.log(title)
+
+				}
+			}
+
 			return { data: filename, status: "completed" }
 		} catch (error) {
 			return { data: null, status: run.status }
@@ -61,6 +84,12 @@ export async function aiAssistant(fileId) {
 	} else {
 		return { data: null, status: run.status }
 	}
+}
+
+async function addMessage(assistantId, threadId, prompt) {
+	await openai.beta.threads.messages.create(threadId, prompt)
+	const response = await openai.beta.threads.runs.createAndPoll(threadId, { assistant_id: assistantId })
+	return response
 }
 
 // Helper function to convert output file to PNG
