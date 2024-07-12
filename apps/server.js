@@ -39,10 +39,6 @@ app.get('/create/:fileId', async (req, res) => {
 	}
 })
 
-app.get('/slides', (req, res) => {
-	res.json({ info: "Get all slides data" })
-})
-
 app.get('/metadata', (req, res) => {
 	res.sendFile(path.join(__dirname, 'data', 'metadata.json'))
 })
@@ -71,6 +67,10 @@ app.get('/data/files/:filename', (req, res) => {
 		res.setHeader('Content-Type', 'application/json')
 		res.send(data)
 	})
+})
+
+app.get('/slides', (req, res) => {
+	res.json({ info: "Get all slides data from database" })
 })
 
 app.listen(port, hostname, () => {
