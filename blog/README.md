@@ -249,9 +249,16 @@ This project use [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) package to g
 
 ## Save Slides Information
 
-To save the slides information, we will use the GridDB database.
+To save the slides information, we will use the GridDB database. These are the database fields documentation:
 
-[draft]
+| Field Name   | Type               | Description                                                                           |
+|--------------|--------------------|---------------------------------------------------------------------------------------|
+| id           | INTEGER            | A unique identifier for each record. This is the primary key for the container and must be unique for each entry. |
+| title        | STRING             | The main title of the slide. It is a short descriptive title summarizing the content of the slide.                |
+| subtitle     | STRING             | A secondary title or subheading providing additional context or a brief description related to the main title.     |
+| chartImage   | STRING             | The URL or path to an image of a chart associated with the slide, used to link visual data representations.       |
+| bulletPoints | STRING             | A string containing bullet points that summarize key information or highlights of the slide. Each bullet point is typically separated by a special character or newline. |
+| pptx         | STRING             | The URL or path to the PowerPoint file (.pptx) that contains the slide, used to link the presentation file including the slide. |
 
 ## Server Routes
 
