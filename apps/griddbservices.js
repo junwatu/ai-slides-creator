@@ -3,13 +3,15 @@ import { generateRandomID } from './libs/rangen.js';
 
 const { collectionDb, store, conInfo } = await GridDB.initGridDbTS();
 
-export async function saveData({ title, document, description }) {
+export async function saveData({ titlePptx, subtitlePptx, chartImagePptx, bulletPointsPptx, pptxFile }) {
 	const id = generateRandomID();
-	const titleIngredients = String(title);
-	const documentDetails = String(document);
-	const descriptionNutrition = String(description);
+	const title = String(titlePptx);
+	const subtitle = String(subtitlePptx);
+	const chartImage = String(chartImagePptx);
+	const bulletPoints = String(bulletPointsPptx);
+	const pptx = String(pptxFile);
 
-	const packetInfo = [parseInt(id), titleIngredients, documentDetails, descriptionNutrition];
+	const packetInfo = [parseInt(id), title, subtitle, chartImage, bulletPoints, pptx];
 	const saveStatus = await GridDB.insert(packetInfo, collectionDb);
 	return saveStatus;
 }

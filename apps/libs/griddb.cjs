@@ -28,8 +28,10 @@ function initContainer() {
 		columnInfoList: [
 			['id', griddb.Type.INTEGER],
 			['title', griddb.Type.STRING],
-			['document', griddb.Type.STRING],
-			['description', griddb.Type.STRING]
+			['subtitle', griddb.Type.STRING],
+			['chartImage', griddb.Type.STRING],
+			['bulletPoints', griddb.Type.STRING],
+			['pptx', griddb.Type.STRING]
 		],
 		type: griddb.ContainerType.COLLECTION,
 		rowKey: true,
@@ -133,11 +135,21 @@ async function queryAll(conInfo, store) {
 
 		while (rowset.hasNext()) {
 			const row = rowset.next();
+
+			/**
+			 ['title', griddb.Type.STRING],
+			['subtitle', griddb.Type.STRING],
+			['chartImage', griddb.Type.STRING],
+			['bulletPoints', griddb.Type.STRING],
+			['pptx', griddb.Type.STRING]
+			 */
 			const rowData = {
 				id: `${row[0]}`,
 				title: `${row[1]}`,
-				document: `${row[2]}`,
-				description: `${row[3]}`,
+				subtitle: `${row[2]}`,
+				chartImage: `${row[3]}`,
+				bulletPoints: `${row[4]}`,
+				pptx: `${row[5]}`,
 			};
 			results.push(rowData);
 		}
