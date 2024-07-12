@@ -88,6 +88,6 @@ export function createPresentation(options) {
 	});
 
 	pptx.writeFile({ fileName: outputFilename });
-	console.log(`Create Presenteation: ${outputFilename}`)
+	console.log(`Create Presentation: ${outputFilename}`)
 	return pptx;
 }
