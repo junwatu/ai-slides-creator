@@ -14,7 +14,7 @@ const insightPrompt = `Give me two medium length sentences (~20-30 words per sen
 
 const analyzeDataPrompt = "Calculate profit (revenue minus cost) by quarter and year, and visualize as a line plot across the distribution channels, where the colors of the lines are green, light red, and light blue"
 
-const bulletPointsPrompt = "Given the plot and bullet points you created,come up with a very brief title only for a slide. It should reflect just the main insights you came up with."
+const titlePrompt = "Given the plot and bullet points you created,come up with a very brief title only for a slide. It should reflect just the main insights you came up with."
 
 const slideTitle = "Global Auto Parts Distribution Inc."
 const slideSubtitle = "Quarterly financial planning meeting"
@@ -53,6 +53,8 @@ export async function aiAssistant(fileId) {
 
 			convertFileToPng(analyticFileId, path.join(__dirname, 'public', filename))
 
+			let presentationOptions
+
 			// AI Insight
 			const result = await addMessage(dataScienceAssistantId, thread.id, insightPrompt)
 
@@ -72,13 +74,13 @@ export async function aiAssistant(fileId) {
 
 				console.log(bulletPoints)
 
-				const bulletPointsSummary = await addMessage(dataScienceAssistantId, thread.id, bulletPointsPrompt)
+				const bulletPointsSummary = await addMessage(dataScienceAssistantId, thread.id, titlePrompt)
 
 				if (bulletPointsSummary.status === "completed") {
 					const message = await openai.beta.threads.messages.list(thread.id)
 					const dataVisTitle = message.data[0].content[0].text.value
 
-					const presentationOptions = {
+					presentationOptions = {
 						title: slideTitle,
 						subtitle: slideSubtitle,
 						dataVisTitle: dataVisTitle,
@@ -96,7 +98,7 @@ export async function aiAssistant(fileId) {
 				}
 			}
 
-			return { data: filename, status: "completed" }
+			return { data: presentationOptions, status: "completed" }
 		} catch (error) {
 			return { data: null, status: run.status }
 		}
