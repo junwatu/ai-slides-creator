@@ -245,9 +245,38 @@ The full code for generating slide content is in the [`libs/ai.js`](https://gith
 
 ## Generate Slides
 
-This project use [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) package to generate the slides. You can look the full code in the `libs/pptx.js` file. Just note that the generated presentation file will be saved in the `public` directory.
+This project use [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) package to generate the slides. You can look the full code in the `libs/pptx.js` file.
 
-## Save Slides Information
+This is the code that call `createPresentation()` function when all the AI-generated slide information is ready.
+
+```js
+//...
+if (bulletPointsSummary.status === "completed") {
+     const message = await openai.beta.threads.messages.list(thread.id)
+     const dataVisTitle = message.data[0].content[0].text.value
+
+     presentationOptions = {
+      title: slideTitle,
+      subtitle: slideSubtitle,
+      dataVisTitle: dataVisTitle,
+      chartImagePath: path.join(__dirname, "public", `${filename}`),
+      keyInsights: "Key Insights:",
+      bulletPoints: bulletPoints,
+      outputFilename: path.join(__dirname, 'public', `GeneratedPresentation-${analyticFileId}.pptx`)
+     };
+
+     try {
+      createPresentation(presentationOptions)
+     } catch (error) {
+      console.log(error)
+     }
+    }
+//...
+```
+
+Just note that the generated presentation file will be saved in the `public` directory with each a unique name.
+
+## Slides Information
 
 To save the slides information, we will use the GridDB database. These are the database fields documentation:
 
@@ -260,9 +289,59 @@ To save the slides information, we will use the GridDB database. These are the d
 | bulletPoints | STRING             | A string containing bullet points that summarize key information or highlights of the slide. Each bullet point is typically separated by a special character or newline. |
 | pptx         | STRING             | The URL or path to the PowerPoint file (.pptx) that contains the slide, used to link the presentation file including the slide. |
 
+The `griddbservices.js` and `libs/griddb.js` files are responsible to save all the slide information to the database.
+
 ## Server Routes
 
-[draft]
+The Node.js server provides a few routes for the client. These are the full documentation for the routes:
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/` | Serves the `index.html` file from the 'dist' folder |
+| GET | `/create/:fileId` | Triggers the AI assistant to process a file and create a presentation. Returns the save status and PPTX file name |
+| GET | `/metadata` | Serves the `metadata.json` file from the `data` directory |
+| GET | `/data/files` | Lists all JSON filenames in the `data` directory |
+| GET | `/data/files/:filename` | Serves a specific JSON file from the `data` directory |
+| GET | `/slides` | Retrieves all slides data from the database |
+
+The most important route is `/create/:fileId` which trigger the AI assistant to analyze data sample, create a presentation and then save all slide information to database.
+
+```js
+app.get('/create/:fileId', async (req, res) => {
+ const fileId = req.params.fileId
+
+ try {
+  const result = await aiAssistant(fileId)
+
+  if (result.status === "completed") {
+   const {
+    title: titlePptx,
+    subtitle: subtitlePptx,
+    dataVisTitle: dataVisTitlePptx,
+    chartImage: chartImagePptx,
+    bulletPoints: bulletPointsPptx,
+    outputFilename: pptxFile
+   } = result.data
+   const saveDataStatus = await saveData({ titlePptx, subtitlePptx, dataVisTitlePptx, chartImagePptx, bulletPointsPptx, pptxFile })
+
+   res.json({
+    save: saveDataStatus,
+    pptx: pptxFile
+   })
+  } else {
+   res.status(500).json({
+    error: 'Task not completed', status: result.status
+   })
+  }
+
+ } catch (error) {
+  console.error('Error in AI Assistant:', error)
+  res.status(500).json({ error: 'Error in AI Assistant', details: error.message })
+ }
+})
+```
+
+The `aiAssistant()` function will analyze the data sample, create presentation and return all information about the slide and then save those slide information to the GridDB database using the `saveData()` function.
 
 ## Further Enhancements
 
