@@ -180,7 +180,7 @@ This project will use JSON data samples from car spare parts sales. The data res
 
 Ideally, the data should be uploaded via the user interface. However, for simplicity in this project, the data will be directly processed when you choose the data samples from the data samples dropdown.
 
-**How OpenAI can processed the file directly?**
+**How OpenAI can process the file directly?**
 
 The answer is, you need to upload manually the data sample files first. Go to the project dashboard and upload the files.
 
@@ -188,14 +188,75 @@ The answer is, you need to upload manually the data sample files first. Go to th
 
 You need to pay attention to the purpose of the uploaded files. In this project the data sample files are used as an **assistants** files.
 
-Later these files id will be used to identify which file is used when the user select the data sample the user interface.
-
+Later these files id will be used to identify which file is used when the user select the data sample from the dropwdon.
 
 ## Generating Content
 
-- Use the Assistant API to generate the text content for each slide. This involves prompting the API with a topic and receiving structured content that can be used in a presentation format.
+When the user select the data sample and click the **Create Slide** button. The Assistant API will generate the image and text for the content slide. These are few important steps in the code to generate the slide content:
 
+### 1. Analyze Data Samples
 
-## Outputting the Slides
+OpenAI will analyze the selected data sample then it will calculate the profit by quarter and year then visualize the plot.
 
-- The final slides are saved as image files which can be compiled into a presentation using tools like PowerPoint or Google Slides.
+The prompt for this process is:
+
+```js
+const analyzeDataPrompt = "Calculate profit (revenue minus cost) by quarter and year, and visualize as a line plot across the distribution channels, where the colors of the lines are green, light red, and light blue"
+```
+
+And this code will process the prompt and the selected file (see `fileId`)
+
+```js
+ const thread = await openai.beta.threads.create({
+  messages: [
+   {
+    "role": "user",
+    "content": analyzeDataPrompt,
+    "attachments": [
+     {
+      file_id: fileId,
+      tools: [{ type: "code_interpreter" }]
+     }
+    ]
+   }
+  ]
+ });
+```
+
+From this code, you can get the plot image. It will be saved in the public directory and will be used in the slide content.
+
+### 2. Generate Bullet Points
+
+The AI Assistant will give an insight about the data and will generate bullet points. This is the prompt to instruct AI to give two insight about the data:
+
+```js
+const insightPrompt = `Give me two medium length sentences (~20-30 words per sentence) of the most important insights from the plot you just created, save each sentence as item in one array. Give me a raw array, no formatting, no commentary. These will be used for a slide deck, and they should be about the 'so what' behind the data.`
+```
+
+### 3. Generate Insight Title
+
+The last step is generating title for the insight. This is the prompt that responsible for that:
+
+```js
+const titlePrompt = "Given the plot and bullet points you created,come up with a very brief title only for a slide. It should reflect just the main insights you came up with."
+```
+
+The full code for generating slide content is in the [`libs/ai.js`](https://github.com/junwatu/ai-slides-creator/blob/main/apps/libs/ai.js) file.
+
+## Generate Slides
+
+This project use [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) package to generate the slides. You can look the full code in the `libs/pptx.js` file. Just note that the generated presentation file will be saved in the `public` directory.
+
+## Save Slides Information
+
+To save the slides information, we will use the GridDB database.
+
+[draft]
+
+## Server Routes
+
+[draft]
+
+## Further Enhancements
+
+[draft]
