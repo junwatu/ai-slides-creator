@@ -252,25 +252,25 @@ This is the code that calls the `createPresentation()` function when all the AI-
 ```js
 //...
 if (bulletPointsSummary.status === "completed") {
-     const message = await openai.beta.threads.messages.list(thread.id)
-     const dataVisTitle = message.data[0].content[0].text.value
+					const message = await openai.beta.threads.messages.list(thread.id)
+					const dataVisTitle = message.data[0].content[0].text.value
 
-     presentationOptions = {
-      title: slideTitle,
-      subtitle: slideSubtitle,
-      dataVisTitle: dataVisTitle,
-      chartImagePath: path.join(__dirname, "public", `${filename}`),
-      keyInsights: "Key Insights:",
-      bulletPoints: bulletPoints,
-      outputFilename: path.join(__dirname, 'public', `GeneratedPresentation-${analyticFileId}.pptx`)
-     };
+					presentationOptions = {
+						title: slideTitle,
+						subtitle: slideSubtitle,
+						dataVisTitle: dataVisTitle,
+						chartImagePath: path.join(__dirname, "public", `${filename}`),
+						keyInsights: "Key Insights:",
+						bulletPoints: bulletPoints,
+						outputFilename: path.join(__dirname, 'public', pptxFilename)
+					};
 
-     try {
-      createPresentation(presentationOptions)
-     } catch (error) {
-      console.log(error)
-     }
-    }
+					try {
+						createPresentation(presentationOptions)
+					} catch (error) {
+						console.log(error)
+					}
+}
 //...
 ```
 
