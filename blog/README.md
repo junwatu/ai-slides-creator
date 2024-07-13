@@ -293,7 +293,7 @@ The `griddbservices.js` and `libs/griddb.js` files are responsible for saving al
 
 ## Server Routes
 
-The Node.js server provides a few routes for the client. This are the full documentation for the routes:
+The Node.js server provides a few routes for the client. This is the full documentation for the routes:
 
 | Method | Route | Description |
 |--------|-------|-------------|
@@ -345,7 +345,7 @@ app.get('/create/:fileId', async (req, res) => {
 
 The `aiAssistant()` function will analyze the data sample, create a presentation return all information about the slide, and then save those slide information to the GridDB database using the `saveData()` function.
 
-To get all the slide data just go to the `/slides` route and it will response with all slides data saved in the database.
+To get all the slide data just go to the `/slides` route and it will respond with all slide data saved in the database.
 
 ![slides data](images/slide-data.png)
 
