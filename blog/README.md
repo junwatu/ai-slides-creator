@@ -343,6 +343,15 @@ app.get('/create/:fileId', async (req, res) => {
 
 The `aiAssistant()` function will analyze the data sample, create presentation and return all information about the slide and then save those slide information to the GridDB database using the `saveData()` function.
 
+## User Interface
+
+![user interface](images/user-interface.png)
+
+The main user interface consist of two components:
+
+- **Dropwdown**: To select a data sample.
+- **Button**: To trigge presentation creation.
+
 ## Further Enhancements
 
-[draft]
+This is a prototype project with a static data samples. Ideally, in production you need to provide a better user interface to upload the data and customize the prompt.

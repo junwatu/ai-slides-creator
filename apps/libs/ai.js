@@ -54,7 +54,7 @@ export async function aiAssistant(fileId) {
 			convertFileToPng(analyticFileId, path.join(__dirname, 'public', filename))
 
 			let presentationOptions
-
+			const pptxFilename = `generated-presentation-${analyticFileId}.pptx`
 			// AI Insight
 			const result = await addMessage(dataScienceAssistantId, thread.id, insightPrompt)
 
@@ -87,7 +87,7 @@ export async function aiAssistant(fileId) {
 						chartImagePath: path.join(__dirname, "public", `${filename}`),
 						keyInsights: "Key Insights:",
 						bulletPoints: bulletPoints,
-						outputFilename: path.join(__dirname, 'public', `GeneratedPresentation-${analyticFileId}.pptx`)
+						outputFilename: path.join(__dirname, 'public', pptxFilename)
 					};
 
 					try {
@@ -98,7 +98,7 @@ export async function aiAssistant(fileId) {
 				}
 			}
 
-			return { data: presentationOptions, status: "completed" }
+			return { data: presentationOptions, status: "completed", pptx: pptxFilename }
 		} catch (error) {
 			return { data: null, status: run.status }
 		}

@@ -39,11 +39,13 @@ app.get('/create/:fileId', async (req, res) => {
 				bulletPoints: bulletPointsPptx,
 				outputFilename: pptxFile
 			} = result.data
+
 			const saveDataStatus = await saveData({ titlePptx, subtitlePptx, dataVisTitlePptx, chartImagePptx, bulletPointsPptx, pptxFile })
 
 			res.json({
 				save: saveDataStatus,
-				pptx: pptxFile
+				data: result.data,
+				pptx: result.pptx
 			})
 		} else {
 			res.status(500).json({

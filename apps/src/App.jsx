@@ -7,7 +7,7 @@ const Home = () => {
 	const [selectedFile, setSelectedFile] = useState('')
 	const [tableData, setTableData] = useState([])
 	const [loading, setLoading] = useState(false)
-	const [imageSrc, setImageSrc] = useState('')
+	const [pptxPath, setPptxPath] = useState('')
 
 	useEffect(() => {
 		// Fetch the metadata for the files
@@ -53,9 +53,9 @@ const Home = () => {
 			const fileId = fileMetadata[selectedFile].id
 			const response = await fetch(`${import.meta.env.VITE_APP_URL}/create/${fileId}`)
 			if (response.ok) {
-				console.log(response.data)
-				const imageUrl = response.data
-				setImageSrc(imageUrl)
+				const responseData = await response.json()
+				console.log(responseData.data)
+				setPptxPath(responseData.pptx)
 				console.log('Slide creation request sent successfully')
 			} else {
 				console.error('Failed to send slide creation request')
@@ -86,9 +86,19 @@ const Home = () => {
 					loading={loading}
 					onClick={handleCreateSlide}
 				/>
+
+				{pptxPath && (
+				<a
+					href={`${import.meta.env.VITE_APP_URL}/download/${pptxPath}`}
+					className="text-blue-500 underline"
+					download
+				>
+					Download Generated Presentation
+				</a>
+			)}
 			</div>
 			{tableData.length > 0 && <InvoiceTable data={tableData} />}
-			{imageSrc && <img src={imageSrc} alt="Generated slide" />}
+			
 		</div>
 	)
 }
