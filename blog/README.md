@@ -345,6 +345,10 @@ app.get('/create/:fileId', async (req, res) => {
 
 The `aiAssistant()` function will analyze the data sample, create a presentation return all information about the slide, and then save those slide information to the GridDB database using the `saveData()` function.
 
+To get all the slide data just go to the `/slides` route and it will response with all slides data saved in the database.
+
+![slides data](images/slide-data.png)
+
 ## User Interface
 
 ![user interface](images/user-interface.png)
