@@ -322,11 +322,13 @@ app.get('/create/:fileId', async (req, res) => {
     bulletPoints: bulletPointsPptx,
     outputFilename: pptxFile
    } = result.data
+
    const saveDataStatus = await saveData({ titlePptx, subtitlePptx, dataVisTitlePptx, chartImagePptx, bulletPointsPptx, pptxFile })
 
    res.json({
     save: saveDataStatus,
-    pptx: pptxFile
+    data: result.data,
+    pptx: result.pptx
    })
   } else {
    res.status(500).json({
@@ -349,8 +351,9 @@ The `aiAssistant()` function will analyze the data sample, create presentation a
 
 The main user interface consist of two components:
 
-- **Dropwdown**: To select a data sample.
-- **Button**: To trigge presentation creation.
+- **Data Dropwdown**: To select a data sample.
+- **Create Slide Button**: To trigge presentation creation.
+- **Download Generated Presentation Link**: Download link for the presentation `.pptx` file.
 
 ## Further Enhancements
 
