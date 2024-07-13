@@ -116,7 +116,7 @@ const dataScienceAssistantId = "asst_FOqRnMVXw0WShTSGw70NZJAX"
 
 ## Data Examples
 
-This project will use JSON data samples from car spare parts sales. The data reside in the `data` directory. This is [the spare part sales data for the year 2020 to the year 2023](https://raw.githubusercontent.com/junwatu/ai-slides-creator/main/apps/data/spare-part-sales-2022-2024.json):
+This project will use JSON data samples from car spare parts sales. The data reside in the `data` directory. This is [the spare part sales data for the year 2020 to the year 2024](https://github.com/junwatu/ai-slides-creator/blob/main/apps/data/spare-part-sales-2020-2024.json):
 
 ```json
 [
