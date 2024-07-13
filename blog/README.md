@@ -22,7 +22,7 @@ cd apps
 npm install 
 ```
 
-Create a `.env` file and copy all environment variables from the `.env.example` file. You need an OpenAI key for this project, please look in [this section](#3-configuring-openai) on how to get the key.
+Create a `.env` file and copy all environment variables from the `.env.example` file. You need an OpenAI key for this project, please look in [this section](#3-setup-openai-keys) on how to get the key.
 
 ```ini
 OPENAI_API_KEY=sk-proj-secret
