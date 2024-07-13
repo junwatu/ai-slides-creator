@@ -39,6 +39,8 @@ Then open the browser and go to the app URL. Select the data sample and then cli
 
 ![create slide button](images/create-slide-button.png)
 
+If the slide presentation is created successfully, a download link will be provided.
+
 ## Getting Started
 
 ### 1. Installing Node.js
