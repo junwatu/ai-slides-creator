@@ -22,7 +22,7 @@ cd apps
 npm install 
 ```
 
-Create an `.env` file and copy all environment variables from the `.env.example` file. You need an OpenAI key for this project, please look in [this section](#3-configuring-openai) on how to get the key.
+Create a `.env` file and copy all environment variables from the `.env.example` file. You need an OpenAI key for this project, please look in [this section](#3-setup-openai-keys) on how to get the key.
 
 ```ini
 OPENAI_API_KEY=sk-proj-secret
@@ -38,6 +38,8 @@ npm run start:build
 Then open the browser and go to the app URL. Select the data sample and then click the **Create Slide** button.
 
 ![create slide button](images/create-slide-button.png)
+
+If the slide presentation is created successfully, a download link will be provided.
 
 ## Getting Started
 
@@ -96,17 +98,17 @@ You should save the OpenAI key on the `.env` file and make sure not to include i
 
 ### 4. Setup AI Assistant
 
-This project need an AI assistant. You need to setup it first, go to the project dashboard and create a new assistant.
+This project needs an AI assistant. You need to set it first, go to the project dashboard, and create a new assistant.
 
 ![create a new assistant](images/create-ai-assistant.png)
 
-You need to pay attention to the **Instruction** field because it will dictate the behaviour of the AI assistant. This is the instruction used for this assistant:
+You need to pay attention to the **Instruction** field because it will dictate the behavior of the AI assistant. This is the instruction used for this assistant:
 
 ```text
 You are a data scientist assistant. When given data and a query, write the proper code and create the proper visualization.
 ```
 
-Another setup is you need to enable **Code Interpeter**, means the assistant will have capability to execute code in a sandbox environtment, basically enable your prompt to execute code. For more information on this feature, please click [here](https://platform.openai.com/docs/assistants/tools/code-interpreter).
+Another setup is you need to enable **Code Interpreter**, which means the assistant will be able to execute code in a sandbox environment, enabling your prompt to execute code. For more information on this feature, please click [here](https://platform.openai.com/docs/assistants/tools/code-interpreter).
 
 After the AI assistant creation, you need to copy the assistant ID. This ID will be used as a reference in the code where you can send messages to the assistant.
 
@@ -116,7 +118,7 @@ const dataScienceAssistantId = "asst_FOqRnMVXw0WShTSGw70NZJAX"
 
 ## Data Examples
 
-This project will use JSON data samples from car spare parts sales. The data reside in the `data` directory. This is [the spare part sales data for the year 2020 to the year 2023](https://raw.githubusercontent.com/junwatu/ai-slides-creator/main/apps/data/spare-part-sales-2022-2024.json):
+This project will use JSON data samples from car spare parts sales. The data reside in the `data` directory. This is [the spare part sales data for the year 2020 to the year 2024](https://github.com/junwatu/ai-slides-creator/blob/main/apps/data/spare-part-sales-2020-2024.json):
 
 ```json
 [
@@ -180,19 +182,19 @@ This project will use JSON data samples from car spare parts sales. The data res
 
 Ideally, the data should be uploaded via the user interface. However, for simplicity in this project, the data will be directly processed when you choose the data samples from the data samples dropdown.
 
-**How OpenAI can process the file directly?**
+**How can OpenAI process the file directly?**
 
-The answer is, you need to upload manually the data sample files first. Go to the project dashboard and upload the files.
+The answer is, that you need to upload manually the data sample files first. Go to the project dashboard and upload the files.
 
 ![upload files](images/upload-files.png)
 
-You need to pay attention to the purpose of the uploaded files. In this project the data sample files are used as an **assistants** files.
+You need to pay attention to the purpose of the uploaded files. In this project, the data sample files are used as **assistants** files.
 
-Later these files id will be used to identify which file is used when the user select the data sample from the dropwdon.
+Later these file IDs will be used to identify which file is used when the user selects the data sample from the dropdown.
 
 ## Generating Content
 
-When the user select the data sample and click the **Create Slide** button. The Assistant API will generate the image and text for the content slide. These are few important steps in the code to generate the slide content:
+When the user selects the data sample and clicks the **Create Slide** button. The Assistant API will generate the image and text for the content slide. These are a few important steps in the code to generate the slide content:
 
 ### 1. Analyze Data Samples
 
@@ -201,7 +203,7 @@ OpenAI will analyze the selected data sample then it will calculate the profit b
 The prompt for this process is:
 
 ```js
-const analyzeDataPrompt = "Calculate profit (revenue minus cost) by quarter and year, and visualize as a line plot across the distribution channels, where the colors of the lines are green, light red, and light blue"
+const analyzeDataPrompt = "Calculate the profit (revenue minus cost) by quarter and year, and visualize as a line plot across the distribution channels, where the colors of the lines are green, light red, and light blue"
 ```
 
 And this code will process the prompt and the selected file (see `fileId`)
@@ -227,50 +229,50 @@ From this code, you can get the plot image. It will be saved in the public direc
 
 ### 2. Generate Bullet Points
 
-The AI Assistant will give an insight about the data and will generate bullet points. This is the prompt to instruct AI to give two insight about the data:
+The AI Assistant will give an insight into the data and will generate bullet points. This is the prompt to instruct AI to give two insights about the data:
 
 ```js
-const insightPrompt = `Give me two medium length sentences (~20-30 words per sentence) of the most important insights from the plot you just created, save each sentence as item in one array. Give me a raw array, no formatting, no commentary. These will be used for a slide deck, and they should be about the 'so what' behind the data.`
+const insightPrompt = `Give me two medium-length sentences (~20-30 words per sentence) of the most important insights from the plot you just created, and save each sentence as an item in one array. Give me a raw array, no formatting, no commentary. These will be used for a slide deck, and they should be about the 'so what' behind the data.`
 ```
 
 ### 3. Generate Insight Title
 
-The last step is generating title for the insight. This is the prompt that responsible for that:
+The last step is generating a title for the insight. This is the prompt that is responsible for that:
 
 ```js
-const titlePrompt = "Given the plot and bullet points you created,come up with a very brief title only for a slide. It should reflect just the main insights you came up with."
+const titlePrompt = "Given the plot and bullet point you created, come up with a very brief title only for a slide. It should reflect just the main insights you came up with."
 ```
 
 The full code for generating slide content is in the [`libs/ai.js`](https://github.com/junwatu/ai-slides-creator/blob/main/apps/libs/ai.js) file.
 
 ## Generate Slides
 
-This project use [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) package to generate the slides. You can look the full code in the `libs/pptx.js` file.
+This project uses the [PptxGenJS](https://gitbrent.github.io/PptxGenJS/) package to generate the slides. You can look at the full code in the `libs/pptx.js` file.
 
-This is the code that call `createPresentation()` function when all the AI-generated slide information is ready.
+This is the code that calls the `createPresentation()` function when all the AI-generated slide information is ready.
 
 ```js
 //...
 if (bulletPointsSummary.status === "completed") {
-     const message = await openai.beta.threads.messages.list(thread.id)
-     const dataVisTitle = message.data[0].content[0].text.value
+					const message = await openai.beta.threads.messages.list(thread.id)
+					const dataVisTitle = message.data[0].content[0].text.value
 
-     presentationOptions = {
-      title: slideTitle,
-      subtitle: slideSubtitle,
-      dataVisTitle: dataVisTitle,
-      chartImagePath: path.join(__dirname, "public", `${filename}`),
-      keyInsights: "Key Insights:",
-      bulletPoints: bulletPoints,
-      outputFilename: path.join(__dirname, 'public', `GeneratedPresentation-${analyticFileId}.pptx`)
-     };
+					presentationOptions = {
+						title: slideTitle,
+						subtitle: slideSubtitle,
+						dataVisTitle: dataVisTitle,
+						chartImagePath: path.join(__dirname, "public", `${filename}`),
+						keyInsights: "Key Insights:",
+						bulletPoints: bulletPoints,
+						outputFilename: path.join(__dirname, 'public', pptxFilename)
+					};
 
-     try {
-      createPresentation(presentationOptions)
-     } catch (error) {
-      console.log(error)
-     }
-    }
+					try {
+						createPresentation(presentationOptions)
+					} catch (error) {
+						console.log(error)
+					}
+}
 //...
 ```
 
@@ -278,7 +280,7 @@ Just note that the generated presentation file will be saved in the `public` dir
 
 ## Slides Information
 
-To save the slides information, we will use the GridDB database. These are the database fields documentation:
+To save the slide information, we will use the GridDB database. These are the database field's documentation:
 
 | Field Name   | Type               | Description                                                                           |
 |--------------|--------------------|---------------------------------------------------------------------------------------|
@@ -289,11 +291,11 @@ To save the slides information, we will use the GridDB database. These are the d
 | bulletPoints | STRING             | A string containing bullet points that summarize key information or highlights of the slide. Each bullet point is typically separated by a special character or newline. |
 | pptx         | STRING             | The URL or path to the PowerPoint file (.pptx) that contains the slide, used to link the presentation file including the slide. |
 
-The `griddbservices.js` and `libs/griddb.js` files are responsible to save all the slide information to the database.
+The `griddbservices.js` and `libs/griddb.js` files are responsible for saving all the slide information to the database.
 
 ## Server Routes
 
-The Node.js server provides a few routes for the client. These are the full documentation for the routes:
+The Node.js server provides a few routes for the client. This is the full documentation for the routes:
 
 | Method | Route | Description |
 |--------|-------|-------------|
@@ -304,7 +306,7 @@ The Node.js server provides a few routes for the client. These are the full docu
 | GET | `/data/files/:filename` | Serves a specific JSON file from the `data` directory |
 | GET | `/slides` | Retrieves all slides data from the database |
 
-The most important route is `/create/:fileId` which trigger the AI assistant to analyze data sample, create a presentation and then save all slide information to database.
+The most important route is `/create/:fileId` which triggers the AI assistant to analyze data samples, create a presentation, and then save all slide information to the database.
 
 ```js
 app.get('/create/:fileId', async (req, res) => {
@@ -322,11 +324,13 @@ app.get('/create/:fileId', async (req, res) => {
     bulletPoints: bulletPointsPptx,
     outputFilename: pptxFile
    } = result.data
+
    const saveDataStatus = await saveData({ titlePptx, subtitlePptx, dataVisTitlePptx, chartImagePptx, bulletPointsPptx, pptxFile })
 
    res.json({
     save: saveDataStatus,
-    pptx: pptxFile
+    data: result.data,
+    pptx: result.pptx
    })
   } else {
    res.status(500).json({
@@ -341,17 +345,22 @@ app.get('/create/:fileId', async (req, res) => {
 })
 ```
 
-The `aiAssistant()` function will analyze the data sample, create presentation and return all information about the slide and then save those slide information to the GridDB database using the `saveData()` function.
+The `aiAssistant()` function will analyze the data sample, create a presentation return all information about the slide, and then save those slide information to the GridDB database using the `saveData()` function.
+
+To get all the slide data just go to the `/slides` route and it will respond with all slide data saved in the database.
+
+![slides data](images/slide-data.png)
 
 ## User Interface
 
 ![user interface](images/user-interface.png)
 
-The main user interface consist of two components:
+The main user interface consists of two components:
 
-- **Dropwdown**: To select a data sample.
-- **Button**: To trigge presentation creation.
+- **Data Dropdown**: To select a data sample.
+- **Create Slide Button**: To trigge presentation creation.
+- **Download Generated Presentation Link**: The download link for the presentation `.pptx` file.
 
 ## Further Enhancements
 
-This is a prototype project with a static data samples. Ideally, in production you need to provide a better user interface to upload the data and customize the prompt.
+This is a prototype project with static data samples. Ideally, in production, you need to provide a better user interface to upload the data and customize the prompt.
