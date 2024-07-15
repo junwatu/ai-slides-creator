@@ -100,10 +100,10 @@ export async function aiAssistant(fileId) {
 
 			return { data: presentationOptions, status: "completed", pptx: pptxFilename }
 		} catch (error) {
-			return { data: null, status: run.status }
+			return { data: null, status: run.status, error }
 		}
 	} else {
-		return { data: null, status: run.status }
+		return { data: null, status: run.status, error: 'Error' }
 	}
 }
 

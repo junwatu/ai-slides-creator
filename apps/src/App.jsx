@@ -89,7 +89,7 @@ const Home = () => {
 
 				{pptxPath && (
 				<a
-					href={`${import.meta.env.VITE_APP_URL}/download/${pptxPath}`}
+					href={`${import.meta.env.VITE_APP_URL}/${pptxPath}`}
 					className="text-blue-500 underline"
 					download
 				>

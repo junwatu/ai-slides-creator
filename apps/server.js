@@ -18,6 +18,7 @@ const port = apiURL.port || 4000
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'dist')))
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
 	// Serve the index.html file from the 'dist' folder
